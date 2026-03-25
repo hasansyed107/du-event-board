@@ -9,7 +9,5 @@ class EventSerializer(serializers.ModelSerializer):
 
     def validate_capacity(self, value):
         if value is not None and value <= 0:
-            raise serializers.ValidationError(
-                "Capacity must be greater than 0."
-            )
+            raise serializers.ValidationError("Capacity must be a positive number greater than zero.")
         return value
