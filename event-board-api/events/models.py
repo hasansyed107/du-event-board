@@ -12,6 +12,12 @@ class Event(models.Model):
     )
     event_name = models.CharField(max_length=500, blank=False, null=True)
     description = models.TextField(blank=True, null=True)
+
+    capacity = models.PositiveIntegerField(
+    null=True,
+    blank=True,
+    help_text="Optional: Maximum number of participants allowed for this event."
+    )
     featured = models.BooleanField(default=False)
     published = models.BooleanField(default=False)
     submitted= models.BooleanField(default=False)
