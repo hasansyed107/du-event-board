@@ -18,47 +18,36 @@ export default function EventCard({ event, viewMode = "grid" }) {
     ended: "status-badge--ended",
   };
 
-  // List view
   if (viewMode === "list") {
     return (
       <article className="event-list-row" id={`event-${event.id}`}>
         <div className="event-list-row__title-wrap">
           {event.url ? (
-            <a
-              href={event.url}
-              className="event-list-row__title"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+            <a href={event.url} target="_blank" rel="noopener noreferrer">
               {event.title}
             </a>
           ) : (
-            <span className="event-list-row__title">{event.title}</span>
+            <span>{event.title}</span>
           )}
         </div>
 
         <div className="event-list-row__right">
-          <span className="event-list-row__category">{event.category}</span>
+          <span>{event.category}</span>
 
           {status !== "none" && (
-            <div
-              className={`status-badge ${statusMap[status]} event-list-row__status`}
-            >
-              {status === "live" && <span className="live-dot" />}
+            <div className={`status-badge ${statusMap[status]}`}>
               {status === "live" ? "Live" : status}
             </div>
           )}
 
-          <span className="event-list-row__date">{formattedDate}</span>
+          <span>{formattedDate}</span>
         </div>
       </article>
     );
   }
 
-  // Grid view
   return (
     <article className="event-card" id={`event-${event.id}`}>
-      {/* Header */}
       <div className="event-card__header">
         <span className="event-card__category">{event.category}</span>
 
@@ -70,64 +59,26 @@ export default function EventCard({ event, viewMode = "grid" }) {
         )}
       </div>
 
-      <h2 className="event-card__title">{event.title}</h2>
-
-      <p className="event-card__description">
-        {event.description || "No description available."}
-      </p>
+      <h2>{event.title}</h2>
+      <p>{event.description || "No description available."}</p>
 
       <div className="event-card__meta">
-        <div className="event-card__meta-item">
-          <span className="event-card__meta-icon" aria-hidden="true">
-            📅
-          </span>
-          <span>{formattedDate}</span>
-        </div>
-
-        <div className="event-card__meta-item">
-          <span className="event-card__meta-icon" aria-hidden="true">
-            🕐
-          </span>
-          <span>{event.time || "Time TBD"}</span>
-        </div>
-
-        <div className="event-card__meta-item">
-          <span className="event-card__meta-icon" aria-hidden="true">
-            📍
-          </span>
-          <span>{event.location || "Location TBD"}</span>
-        </div>
-
-        <div className="event-card__meta-item">
-          <span className="event-card__meta-icon" aria-hidden="true">
-            🎟️
-          </span>
-          <span>
-            {event.capacity !== undefined
-              ? `${event.capacity} spots`
-              : "Unlimited"}
-          </span>
-        </div>
+        <span>📅 {formattedDate}</span>
+        <span>🕐 {event.time || "Time TBD"}</span>
+        <span>📍 {event.location || "Location TBD"}</span>
       </div>
 
-      {event.tags && event.tags.length > 0 && (
-        <div className="event-card__tags">
-          {event.tags.map((tag, index) => (
-            <span key={`${tag}-${index}`} className="event-card__tag">
-              #{tag}
-            </span>
+      {event.tags?.length > 0 && (
+        <div>
+          {event.tags.map((tag) => (
+            <span key={tag}>#{tag}</span>
           ))}
         </div>
       )}
 
       {event.url && (
-        <a
-          href={event.url}
-          className="event-card__link"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn more <span className="event-card__link-arrow">→</span>
+        <a href={event.url} target="_blank" rel="noopener noreferrer">
+          Learn more →
         </a>
       )}
     </article>
